@@ -1,12 +1,29 @@
+const axios = require("axios");
+
 // 1. Seleccionamos el contenedor donde irán las películas
 const container = document.getElementById("movies-grid");
 
-$.get("https://students-api.up.railway.app/movies", (data) => {
-  renderMovies(data);
-});
+// $.get("https://students-api.up.railway.app/movies", (data) => {
+//   renderMovies(data);
+// });
+
+// cambio la llamada a axios para obtener los datos
+const data = async () => {
+  try {
+    const response = await axios.get(
+      "https://students-api.up.railway.app/movies",
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return [];
+  }
+};
+
+data();
 
 // 2. Función para renderizar
-function renderMovies(data) {
+function renderCards(data) {
   // Limpiamos el contenedor por si acaso
   container.innerHTML = "";
 
@@ -31,5 +48,5 @@ function renderMovies(data) {
   });
 }
 
-renderMovies(data);
+renderCards(data);
 console.log(data);
